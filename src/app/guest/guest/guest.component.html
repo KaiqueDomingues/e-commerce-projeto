@@ -1,0 +1,25 @@
+<!-- <div class="table responsive">
+    <table>
+        <tr>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Valor</th>
+        </tr>
+
+        <tr *ngFor="let p of produto">
+            <td>{{p.nome}}</td>
+            <td>{{p.descricao}}</td>
+            <td>{{p.preco |currency: 'BRL'}}</td>
+        </tr>
+    </table>
+</div> -->
+<div *ngFor="let p of produto" class="card" style="width: 18rem;">
+    <img class="card-img-top">
+    <div class="card-body">
+        <h5 class="card-title">{{ p.nome}}</h5>
+        <p class="card-text">
+            {{p.descricao}}
+        </p>
+        <a href="#" class="btn btn-primary">Compre aqui</a>
+    </div>
+</div>
