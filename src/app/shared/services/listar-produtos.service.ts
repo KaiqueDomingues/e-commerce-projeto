@@ -5,12 +5,16 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ListarProdutosService {
-  guestService: any;
-
+  
 
   constructor(private http:HttpClient) { }
 
   listarProduto(){
     return this.http.get("https://api.fabrizioborelli.com.br/ecommerce/produtos");
   }
+
+  getAll(){
+    return this.http.get("https://api.fabrizioborelli.com.br/ecommerce/produtos");
+  }
+
 }

@@ -1,25 +1,21 @@
-<!-- <div class="table responsive">
-    <table>
-        <tr>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Valor</th>
-        </tr>
-
-        <tr *ngFor="let p of produto">
-            <td>{{p.nome}}</td>
-            <td>{{p.descricao}}</td>
-            <td>{{p.preco |currency: 'BRL'}}</td>
-        </tr>
-    </table>
-</div> -->
-<div *ngFor="let p of produto" class="card" style="width: 18rem;">
-    <img class="card-img-top">
-    <div class="card-body">
-        <h5 class="card-title">{{ p.nome}}</h5>
-        <p class="card-text">
-            {{p.descricao}}
-        </p>
-        <a href="#" class="btn btn-primary">Compre aqui</a>
+<div class="container-fluid">
+    <button class="btn btn-primary" (click)="finalizarCompra()">Finalizar Compra</button>
+    <div class="row">
+        <div class="mx-auto" *ngFor="let p of produto" style="width: 18rem; margin-bottom: 10px; margin-top: 10px;">
+            <div class="card">
+                <img class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">{{ p.nome}}</h5>
+                    <p class="card-text">
+                        {{p.descricao}}
+                    </p>
+                    <p class="card-text">
+                        {{p.preco}}
+                    </p>
+                    <input type="number" class="form-control input" id="quantidade" formControlName="quantidade" (change)="onQuantidadeChange(p, $event)" placeholder="Quantidade">
+                    <a href="#" class="btn btn-primary">Compre aqui</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

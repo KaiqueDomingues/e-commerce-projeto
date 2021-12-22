@@ -16,14 +16,14 @@ export class AdminComponent implements OnInit {
     this.retornarTodos();
   }
 
-  onApagarClick(aluno: any){
-    console.log(aluno)
-    this.adminService.deletar(aluno.id)
+  onApagarClick(produto: any){
+    console.log(produto)
+    this.adminService.deletar(produto.idProduto)
       .subscribe(
         ()=> {
-          let index = this.produtos.findIndex( (obj:any) =>  this.produtos.id == obj.id );
+          let index = this.produtos.findIndex( (obj:any) =>  this.produtos.idProduto == obj.id );
           this.produtos.splice(index,1);
-          alert(`Aluno ${aluno.id} deletado com sucesso` );
+          alert(`Produto ${produto.idProduto} deletado com sucesso` );
         }
       );
   }
@@ -33,7 +33,6 @@ export class AdminComponent implements OnInit {
     .subscribe(
         (dados)=>{
           this.produtos = dados;
-          //console.log(dados)
         }
       );
   }

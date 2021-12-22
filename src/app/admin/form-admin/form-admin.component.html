@@ -1,4 +1,4 @@
-<form [formGroup]="meuForm" (submit)="onSubmit()" >
+<form [formGroup]="meuForm" (submit)="onSubmit()">
     <div class="mb-3">
         <label for="exampleInputNome1" class="form-label">Nome do produto</label>
         <input type="text" class="form-control" id="exampleInputNome1" formControlName="nome" >
@@ -15,18 +15,10 @@
     </div>
 
     <div class="mb-3">
-        <label for="exampleInputDescricao1" class="form-label">Categoria Primaria</label>
-        <input type="text" class="form-control" id="exampleInputcategoria1" formControlName="categorias" >
+        <label for="categoria" class="form-label">Categoria</label>
+       <select class="form-control" formControlName="categorias">
+           <option value=""> SELECIONE</option>
+           <option *ngFor="let cat of categoriasSelect" [value]="cat.idCategoria">{{ cat.nome }}</option>
+       </select>
     </div>
-
-    <div class="mb-3">
-        <label for="exampleInputDescricao1" class="form-label">Categoria Secundaria</label>
-        <input type="text" class="form-control" id="exampleInputcategoria1" formControlName="categorias" >
-    </div>
-
-    <div class="mb-3">
-        <label for="exampleInputimagens1" class="form-label">Imagens</label>
-        <input type="file" class="form-control" id="exampleInputimagens1" formControlName="imagens" accept="image/png, image/jpeg">
-    </div>
-
-    <button type="submit" class="btn btn-primary" [disabled]="meuForm.valid" >Enviar</button>
+    <button type="submit" class="btn btn-primary">Enviar</button>

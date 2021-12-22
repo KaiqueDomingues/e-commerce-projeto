@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { ItemVendaModel } from 'src/app/shared/models/item-venda.model';
+import { produtoModel } from 'src/app/shared/models/produto.model';
+import { ListarProdutosService } from 'src/app/shared/services/listar-produtos.service';
+import { StorageService } from 'src/app/shared/services/storage.service';
 import { GuestService } from '../guest.service';
 
 @Component({
@@ -9,10 +12,13 @@ import { GuestService } from '../guest.service';
 })
 export class GuestComponent implements OnInit {
   
+  itemVenda: ItemVendaModel[] = [];
   produto: any;
 
 
-  constructor(private guestService:GuestService) {
+  constructor(private guestService:GuestService,
+    private sharedModule: ListarProdutosService,
+    private storageService: StorageService) {
    }
 
   ngOnInit(): void {
@@ -27,6 +33,32 @@ export class GuestComponent implements OnInit {
           //console.log(dados)
         }
       );
+  }
+
+  onQuantidadeChange(produto : produtoModel, event: any){
+    console.log(event.target.value)
+
+    let ivm: ItemVendaModel = new ItemVendaModel();
+
+    ivm.produto = produto;
+    ivm.quantidade = event.target.value;
+
+    let index = this.itemVenda
+    .findIndex((x:ItemVendaModel) => x.produto.idProduto  == produto.idProduto
+    );
+
+    if(index >= 0){
+      this.itemVenda[index].quantidade = event.target.value;
+    }else{
+      this.itemVenda.push(ivm);
+    }
+
+    
+    console.log(this.itemVenda)
+  }
+
+  finalizarCompra(){
+    this.storageService.setCarrinho(this.itemVenda);
   }
 
 }

@@ -4,11 +4,15 @@ import { CommonModule } from '@angular/common';
 import { GuestRoutingModule } from './guest-routing.module';
 import { GuestComponent } from './guest/guest.component';
 import { SharedModule } from '../shared/shared.module';
+import { FormGuestComponent } from './form-guest/form-guest.component';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
   declarations: [
-    GuestComponent
+    GuestComponent,
+    FormGuestComponent,
+    LoginComponent,
   ],
   imports: [
     CommonModule,
@@ -16,7 +20,8 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule
   ],
   exports:[
-    GuestComponent
+    GuestComponent,
+    FormGuestComponent
   ]
 })
 export class GuestModule { }

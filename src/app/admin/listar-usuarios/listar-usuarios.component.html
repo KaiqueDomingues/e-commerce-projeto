@@ -1,0 +1,41 @@
+<div class="table-responsive">
+
+<table class="table" style="font-size: 12px;">
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <!-- <th>Senha</th> -->
+        <th>Data de Nascimento</th>
+        <th>CPF</th>
+        <th>Telefone</th>
+        <th>Celular</th>
+        <th>Tipo de usuario</th>
+        <th>Endereço</th>
+        <th>Ações</th>
+    </tr>
+
+    <tr *ngFor="let u of usuarios">
+        <td> {{ u.id }} </td>
+        <td> {{ u.nome }} </td>
+        <td> {{ u.email }} </td>
+        <!-- <td>{{ p.senha}}</td> -->
+        <td>{{ u.dataDeNascimento}}</td>
+        <td>{{ u.cpf}}</td>
+        <td>{{ u.telefone}}</td>
+        <td>{{ u.celular}}</td>
+        <td>{{ u.perfis}}</td>
+        <td><p *ngFor="let e of u?.idEndereco">{{e.logradouro}}, {{e.numero}}, {{e.bairro}}, {{e.cidade}},{{e.estado}}</p></td>
+        <td>
+            <button class="btn btn-outline-info" [routerLink]="['./editar/', u.id ]"> Editar </button>  
+        </td>
+        
+        <td>
+            <button class="btn btn-outline-danger" (click)="onApagarClick(u)"> Apagar </button>
+        </td>
+
+    </tr>
+
+</table>
+
+</div>

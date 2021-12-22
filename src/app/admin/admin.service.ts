@@ -6,17 +6,18 @@ import { Injectable } from '@angular/core';
 })
 export class AdminService {
 
+
   constructor(private http:HttpClient) { }
 
   getAll(){
-    return this.http.get("https://api.fabrizioborelli.com.br/ecommerce/produtos");
+    return this.http.get("https://api.fabrizioborelli.com.br/ecommerce/produtos/");
   }
 
   deletar(id : number){
     return this.http.delete(`https://api.fabrizioborelli.com.br/ecommerce/produtos/${id}`)
   }
 
-  salvar(body: any){
+  save(body: any){
     return this.http.post("https://api.fabrizioborelli.com.br/ecommerce/produtos",body)
   }
 
@@ -25,7 +26,15 @@ export class AdminService {
   }
 
   getOne(id: number){
-    return this.http.get(`http://cursos.grandeporte.com.br:8080/usuarios/${id}`)
+    return this.http.get(`https://api.fabrizioborelli.com.br/ecommerce/produtos/${id}`)
+  }
+
+  getCategorias(){
+    return this.http.get('https://api.fabrizioborelli.com.br/ecommerce/categorias');
+  }
+
+  getUsuarios(){
+    return this.http.get("https://api.fabrizioborelli.com.br/ecommerce/usuarios");
   }
 
 }

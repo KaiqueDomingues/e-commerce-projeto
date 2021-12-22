@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ListarProdutosService } from 'src/app/shared/services/listar-produtos.service';
 import { AdminService } from '../admin.service';
 
 @Component({
@@ -10,48 +11,42 @@ import { AdminService } from '../admin.service';
 })
 export class FormAdminComponent implements OnInit {
 
-  id :number = 0;
+  id: number = 0;
 
-  meuForm : FormGroup = new FormGroup({
-    nomeProduto: new FormControl(),
-    valor: new FormControl(),
+  meuForm: FormGroup = new FormGroup({
+    nome: new FormControl(),
+    preco: new FormControl(),
     descricao: new FormControl(),
-    categoria: new FormControl(),
+    categorias: new FormControl(),
     imagem: new FormControl(),
   })
 
-  http:any;
+  http: any;
+  categoriasSelect: any = [];
 
   constructor(
-    private activatedRoute:ActivatedRoute,
-    private fb : FormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private fb: FormBuilder,
     private adminService: AdminService,
-    private router: Router) { }
+    private router: Router,
+    private listarcategorias: ListarProdutosService) { }
 
   ngOnInit(): void {
-
-    this.meuForm = this.fb.group({
-      nomeProduto : [[Validators.required]],
-      valor: [[Validators.required]],
-      descricao: [[Validators.required]],
-      categoria: [[Validators.required]],
-      imagem: [[Validators.required]],
-    })
-    ;
+    this.getCategorias();
 
     this.activatedRoute.params
       .subscribe(
-        (parametros : any)=>{
+        (parametros: any) => {
           console.log(parametros)
 
           // Edição
-          if (parametros.id){
+          if (parametros.idProduto) {
             //atualizar o id a ser editado
-            this.id = parametros.id;
+            this.id = parametros.idProduto;
 
-            this.adminService.getOne(parametros.id)
+            this.adminService.getOne(parametros.idProduto)
               .subscribe(
-                (resposta)=>{
+                (resposta) => {
                   console.log(resposta)
                   this.meuForm.patchValue(resposta);
                 }
@@ -65,38 +60,60 @@ export class FormAdminComponent implements OnInit {
       );
   }
 
-  getControl(control : string){
-    return this.meuForm.get(control);
-  }
 
-  isValid(control :string){
-    return (this.getControl(control)?.valid == false && this.getControl(control)?.touched)
-  }
+  onSubmit(): void {
+    //console.log(this.meuForm.value)
+    //console.log(this.categoriasSelect)
 
-  onSubmit(){
- 
-    // quando é edição
-    if (this.id > 0){
-      this.adminService.update(this.id, this.meuForm.value)
-      .subscribe(
-        (dados) => {
-          console.log(dados);
-          this.router.navigate(['/alunos'])
-        }
-      );
-    }
-    // quando é criação
-    else{
-      this.adminService.salvar(this.meuForm.value)
+    let index = this.categoriasSelect
+      .findIndex((x: any) => x.idCategoria == this.meuForm.value.categorias);
+
+    //console.log(index)
+    //console.log([ this.categoriasSelect[index] ])
+    this.meuForm.value.categorias = [this.categoriasSelect[index]];
+    this.meuForm.value.imagens = [];
+    //console.log(this.meuForm.value)
+
+    this.adminService.save(this.meuForm.value)
       .subscribe(
         {
-          next: (respota) => { this.router.navigate(['/alunos']) },
-          error: (e) => { alert('Erro ao Salvar') },
-          complete : () => { console.log('acabou')}
+          next: (produto) => {
+            console.log(produto)
+          }
         }
       );
+
+    if (this.id > 0) {
+      this.adminService.update(this.id, this.meuForm.value)
+        .subscribe(
+          (dados) => {
+            console.log(dados);
+            this.router.navigate(['/admin'])
+          }
+        );
+    }
+    // quando é criação
+    else {
+      this.adminService.save(this.meuForm.value)
+        .subscribe(
+          {
+            next: (respota) => { this.router.navigate(['/admin']) },
+            error: (e) => { alert('Erro ao Salvar') },
+            complete: () => { console.log('acabou') }
+          }
+        );
     }
   }
+
+  private getCategorias() {
+    this.adminService.getCategorias()
+      .subscribe(
+        {
+          next: (categorias) => {
+            this.categoriasSelect = categorias;
+          }
+        }
+      );
+  }
+
 }
-
-
