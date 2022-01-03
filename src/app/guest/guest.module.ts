@@ -5,7 +5,7 @@ import { GuestRoutingModule } from './guest-routing.module';
 import { GuestComponent } from './guest/guest.component';
 import { SharedModule } from '../shared/shared.module';
 import { FormGuestComponent } from './form-guest/form-guest.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from '../auth/login/login.component';
 
 
 @NgModule({

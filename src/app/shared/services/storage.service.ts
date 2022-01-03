@@ -7,47 +7,46 @@ import { produtoModel } from '../models/produto.model';
 })
 export class StorageService {
 
-  CARRINHO_KEY = 'carrinho';
-
-  //Responsável por gerenciar o carrinho na aplicação do Ecommerce
-
-  constructor() { 
-
+  /**
+   * Responsável por gerenciar o carrinho na aplicação
+   * do ecommerce
+   */
+   constructor() { 
 
   }
 
   getCarrinho() : ItemVendaModel[]{
-    let carrinho = localStorage.getItem(this.CARRINHO_KEY);
+    let carrinho = localStorage.getItem('carrinho');
 
     if (carrinho != null){
       return JSON.parse(carrinho);
-    }else{
+    }
+    else {
       return [];
     }
   }
 
-
-  setCarrinho(carrinho: ItemVendaModel[]){
-    if (carrinho != null){
-      localStorage.setItem('carrinho', JSON.stringify(carrinho))
-    }else{
-      localStorage.removeItem('carrinho')
+  setCarrinho(carrinho : ItemVendaModel[]){
+    if (carrinho != null ){
+      localStorage.setItem('carrinho', JSON.stringify(carrinho) )
+    }
+    else{
+      localStorage.removeItem('carrinho');
     }
   }
 
-  addItemCarrinho(produto : produtoModel, quantidade: number){
+  addItemCarrinho(produto : produtoModel, quantidade : number){
     let item = new ItemVendaModel();
 
     item.produto = produto;
     item.quantidade = quantidade;
 
-    //pegar intem do localStorage
+    // pegar item do localStorage
     let carrinho = this.getCarrinho();
 
-    //colocar novo item no final da Array
+    // colocar novo item no final do Array
     carrinho.push(item);
 
-    //atualiza o carrinho
     this.setCarrinho(carrinho);
   }
 }

@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { FormAdminComponent } from './form-admin/form-admin.component';
 import { ListarUsuariosComponent } from './listar-usuarios/listar-usuarios.component';
 import { GuestModule } from '../guest/guest.module';
+import { AdminService } from './admin.service';
 
 
 
@@ -24,7 +25,7 @@ import { GuestModule } from '../guest/guest.module';
   ],
   exports:[
     AdminComponent,
-    FormAdminComponent
+    FormAdminComponent,
   ]
 })
 export class AdminModule { }

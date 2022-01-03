@@ -41,24 +41,27 @@ export class FormGuestComponent implements OnInit {
     private usuarioService: UsuarioService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+
   ) { }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
 
-    this.activatedRoute.params.subscribe((parametros: any) => {
-      console.log(parametros);
-      //Edita
-      if (parametros.id) {
-        this.id = parametros.id;
+    this.activatedRoute.params
+      .subscribe((parametros: any) => {
+        console.log(parametros);
+        //Edita
+        if (parametros.id) {
+          this.id = parametros.id;
 
-        this.usuarioService.getOne(this.id).subscribe((resposta: any) => {
-          console.log(resposta);
+          this.usuarioService.getOne(this.id)
+            .subscribe((resposta: any) => {
+              console.log(resposta);
 
-          this.meuFormuser.patchValue(resposta);
-        });
-      }
-    });
+              this.meuFormuser.patchValue(resposta);
+            });
+        }
+      });
 
     let contador = localStorage.getItem("contador");
 
@@ -89,34 +92,28 @@ export class FormGuestComponent implements OnInit {
   onSubmit() {
     console.log(this.meuFormuser.value)
 
-    this.usuarioService.novoUsuario(this.meuFormuser.value)
-      .subscribe(
-        {
-          next: (dados) => {
-            console.log(dados);
-            alert(`Cadastro realizado com sucesso!`);
-            this.router.navigate(['/admin'])
-          }
-        }
-      );
+    this.usuarioService.novoUsuario(this.meuFormuser.value);
+
 
     if (this.id > 0) {
-      this.usuarioService.update(this.id, this.meuFormuser.value).subscribe(
-        (dados) => {
+      this.meuFormuser.value.perfis = null;
+      this.usuarioService
+        .update(this.id, this.meuFormuser.value)
+        .subscribe((dados) => {
           console.log(dados);
           alert(` Atualizado com sucesso!`);
           this.meuFormuser.reset();
-          this.router.navigate(['/listar-usuarios']);
-        }
-      );
+          this.router.navigate(['/usuarios']);
+        });
     } else {
-      this.usuarioService.novoUsuario(this.meuFormuser.value).subscribe(
-        (resposta: any) => {
+      this.usuarioService
+        .save(this.meuFormuser.value)
+        .subscribe((resposta: any) => {
           alert(`Usuário cadastrado com sucesso!`);
           console.log(resposta);
           this.meuFormuser.reset();
-        }
-      );
+          this.router.navigate(['/usuarios']);
+        });
     }
   }
 }

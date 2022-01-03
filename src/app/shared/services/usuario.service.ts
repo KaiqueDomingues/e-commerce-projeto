@@ -28,4 +28,9 @@ export class UsuarioService {
   getOne(id: number){
     return this.http.get(`http://cursos.grandeporte.com.br:8080/usuarios/${id}`)
   }
+
+  save(body: any){
+    return this.http.post("https://api.fabrizioborelli.com.br/ecommerce/usuarios",body)
+  }
+  
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CategoriaModel } from 'src/app/shared/models/categoria.model';
 import { AdminService } from '../admin.service';
 
 @Component({
@@ -9,11 +11,16 @@ import { AdminService } from '../admin.service';
 export class AdminComponent implements OnInit {
 
   produtos: any;
+  categorias : CategoriaModel[] = [];
 
-  constructor(private adminService:AdminService) { }
+  constructor(
+    private adminService:AdminService,
+    private router:Router
+    ) { }
 
   ngOnInit(): void {
     this.retornarTodos();
+    this.getAllCategorias();
   }
 
   onApagarClick(produto: any){
@@ -33,6 +40,15 @@ export class AdminComponent implements OnInit {
     .subscribe(
         (dados)=>{
           this.produtos = dados;
+        }
+      );
+  }
+
+  private getAllCategorias(){
+    this.adminService.getCategorias()
+      .subscribe(
+        {
+          next : (categorias : any) => {this.categorias = categorias;}
         }
       );
   }

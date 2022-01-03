@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { UsuarioService } from 'src/app/shared/services/usuario.service';
 import { AdminService } from '../admin.service';
 
 @Component({
@@ -14,6 +16,7 @@ export class ListarUsuariosComponent implements OnInit {
   dados: any;
   idEndereco: any;
   endereco: any = [];
+  id: number = 0;
 
   meuform: FormGroup = new FormGroup({
       nome: new FormControl(),
@@ -41,7 +44,7 @@ export class ListarUsuariosComponent implements OnInit {
 
   constructor(
     private adminService: AdminService,
-    private http:HttpClient,          
+    private http:HttpClient,         
   ) { }
 
   ngOnInit(): void {
@@ -51,6 +54,8 @@ export class ListarUsuariosComponent implements OnInit {
     //   this.meuform.value.idEndereco = [this.idEndereco[index]];
 
 
+    
+
     this.adminService.getUsuarios()
     .subscribe(
       
@@ -58,6 +63,9 @@ export class ListarUsuariosComponent implements OnInit {
           this.usuarios = dados;
         }
       );
+      this.getEndereco();
+
+
   }
 
   onApagarClick(usuarios:any){
@@ -69,7 +77,13 @@ export class ListarUsuariosComponent implements OnInit {
       );
       this.usuarios.splice(index,1);
       alert(`Usuario ${usuarios.id} deletado com sucesso!`);
-      this.adminService
+    })
+  }
+
+  getEndereco(){
+    this.adminService.getEndereco()
+    .subscribe((dados) => {
+      this.endereco = dados;
     })
   }
 }

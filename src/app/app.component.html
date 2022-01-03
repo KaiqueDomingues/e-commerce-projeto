@@ -1,28 +1,41 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#" [routerLink]="['/guest']">Kaique-Eletro</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-info">
+
+  <a class="navbar brand" href="">
+        <img style="width: 30px;" [routerLink]="['/guest']" src="https://cdn-icons.flaticon.com/png/512/4457/premium/4457879.png?token=exp=1640270800~hmac=c687b09cea8debffb312cf3017f67bb8">
+      </a>
+
+  <a class="navbar-brand" href="#" [routerLink]="['/guest']" style="margin-left: 8px;">Kaique's Store</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <!-- <li class="nav-item active">
         <a class="nav-link"
         aria-current="page"
         [routerLink]="['/guest']"
         routerLinkActive="active">Produtos</a>
-      </li>
+      </li> -->
 
       <li class="nav-item">
         <a class="nav-link"
         aria-current="page"
         [routerLink]="['/admin']"
-        routerLinkActive="active">Admin</a>
+        routerLinkActive="active"
+        style="margin-top: 7px;">Admin</a>
       </li>
 
+      <a class="navbar brand" href="">
+        <img style="width: 30px; margin-left: 1000px;" src="https://cdn-icons.flaticon.com/png/512/3303/premium/3303495.png?token=exp=1640267362~hmac=2c2c8aacb7cf5e63f71f5ed8e8632428">
+      </a>
+
       <form class="form-inline">
-        <button class="btn-sm btn-outline-success" style="margin-left: 1100px;" type="submit" [routerLink]="['guest/new']">Cadastrar</button>
-        <button class="btn-sm btn-outline-success" type="submit" [routerLink]="['/login']">Login</button>
+        <button class="btn-sm btn-outline-success" style="margin-right: 6px; margin-left: 10px; margin-top: 7px;" type="submit" [routerLink]="['guest/new']">Cadastrar</button>
+        <button class="btn-sm btn-outline-success" style="margin-left: 4px;" type="submit" [routerLink]="['/login']">Login</button>
+        <button class="btn btn-outline-danger" type="button" *ngIf="authService.isAutenticado()" (click)="onSairClick()">
+          Sair
+      </button>
       </form>
     </ul>
     

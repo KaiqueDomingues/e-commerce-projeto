@@ -17,4 +17,8 @@ export class ListarProdutosService {
     return this.http.get("https://api.fabrizioborelli.com.br/ecommerce/produtos");
   }
 
+  getCategorias(){
+    return this.http.get('https://api.fabrizioborelli.com.br/ecommerce/categorias');
+  }
+
 }

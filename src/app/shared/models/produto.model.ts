@@ -1,5 +1,5 @@
 import { CategoriaModel } from "./categoria.model";
-import { ImagemModel } from "./imagens.model";
+import { imagemModel } from "./imagem.model";
 
 export class produtoModel{
 
@@ -8,6 +8,6 @@ export class produtoModel{
     preco : number;
     descricao : string;
     categorias : Array <CategoriaModel>;
-    imagens : Array <ImagemModel>;
+    imagens : Array <imagemModel>;
 
 }

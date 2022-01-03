@@ -36,5 +36,8 @@ export class AdminService {
   getUsuarios(){
     return this.http.get("https://api.fabrizioborelli.com.br/ecommerce/usuarios");
   }
+  getEndereco(){
+    return this.http.get( 'https://api.fabrizioborelli.com.br/ecommerce/enderecos/')
+  }
 
 }

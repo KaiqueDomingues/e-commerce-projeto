@@ -17,7 +17,7 @@ export class GuestService {
   }
 
   getOne(id: number){
-    return this.http.get(`http://cursos.grandeporte.com.br:8080/usuarios/${id}`)
+    return this.http.get(`https://api.fabrizioborelli.com.br/ecommerce/usuarios/${id}`)
   }
 
   update (id: number, body: any){
@@ -26,6 +26,14 @@ export class GuestService {
 
   save(body: any){
     return this.http.post("https://api.fabrizioborelli.com.br/ecommerce/usuarios",body)
+  }
+  
+  getCategorias(){
+    return this.http.get('https://api.fabrizioborelli.com.br/ecommerce/categorias');
+  }
+
+  getImagens(){
+    return this.http.get('https://api.fabrizioborelli.com.br/ecommerce/imagens');
   }
 
 }

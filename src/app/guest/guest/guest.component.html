@@ -1,21 +1,40 @@
-<div class="container-fluid">
-    <button class="btn btn-primary" (click)="finalizarCompra()">Finalizar Compra</button>
-    <div class="row">
-        <div class="mx-auto" *ngFor="let p of produto" style="width: 18rem; margin-bottom: 10px; margin-top: 10px;">
-            <div class="card">
-                <img class="card-img-top">
+<div class="container-fluid" style="background-color: azure;">
+    <button class="btn btn-primary" style="margin-top: 8px;" (click)="finalizarCompra()"> Finalizar Compra </button>
+    
+    <select class="form-control"  style="width:160px; margin-left: 1028px;" [(ngModel)]="categoriaSelected" (change)="onCategoriaChange()" >
+        <option value="-1">Ver todos</option>
+        <option *ngFor="let c of categorias" [value]="c.idCategoria">{{c.nome}}</option>
+    </select>
+
+
+    <div class='row'>
+
+        <div class='col-3' *ngFor="let dados of produtos" style="width: 18rem;margin-top: 10px;margin-left: 15px;">
+
+            <div class="card-group">
+                <div class="card bg-light">
+                    <div *ngFor="let img of dados?.imagens" >
+
+                        <img src="{{img.imagemProduto}}"class="card-img-top">
+
+                    </div>
                 <div class="card-body">
-                    <h5 class="card-title">{{ p.nome}}</h5>
-                    <p class="card-text">
-                        {{p.descricao}}
-                    </p>
-                    <p class="card-text">
-                        {{p.preco}}
-                    </p>
-                    <input type="number" class="form-control input" id="quantidade" formControlName="quantidade" (change)="onQuantidadeChange(p, $event)" placeholder="Quantidade">
-                    <a href="#" class="btn btn-primary">Compre aqui</a>
+                    <h5 class="card-title">{{ dados.nome }}</h5>
+                    <p *ngFor="let c of dados.categorias" style="font-size: 12px;">
+                        {{ c.nome }}
+                    <p class="card-body">Descrição: {{ dados.descricao }}</p>
+                </div>
+
+                <div class="card-body">
+                    <p>{{ dados.preco | currency: 'BRL' }}</p>
+                    <input type="number" class="form-control input" style="width: 130px;" (change)="onQuantidadeChange(dados, $event)" placeholder="Quantidade"  >
+                    <!-- <a href="#" class="btn btn-primary">Compre aqui </a>; -->
+
                 </div>
             </div>
         </div>
+
+        </div>
+
     </div>
 </div>
